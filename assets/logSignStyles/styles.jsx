@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-const GenStyles = StyleSheet.create({
+const GenLogStyles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: "center",
@@ -48,4 +48,4 @@ const GenStyles = StyleSheet.create({
     }
 })
 
-export default GenStyles;
+export default GenLogStyles;

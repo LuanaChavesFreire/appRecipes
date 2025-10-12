@@ -1,18 +1,18 @@
-import  { Text, TextInput, TouchableHighlight, View } from "react-native";
-import GenStyles from "../../../assets/logSignStyles/generalStyles";
+import { Text, TextInput, TouchableHighlight, View } from "react-native";
+import GenLogStyles from "../../../assets/logSignStyles/styles";
 
 export default function LogDisplay() {
     return(
-        <View style={GenStyles.container}>
-            <View style={GenStyles.display}>
-                <Text style={GenStyles.displayTitle}>Login</Text>
+        <View style={GenLogStyles.container}>
+            <View style={GenLogStyles.display}>
+                <Text style={GenLogStyles.displayTitle}>Login</Text>
 
-                <TextInput style={GenStyles.input} placeholder="email"/>
+                <TextInput style={GenLogStyles.input} placeholder="email"/>
 
-                <TextInput style={GenStyles.input} placeholder="password"/>
+                <TextInput style={GenLogStyles.input} placeholder="password"/>
 
-                <TouchableHighlight style={GenStyles.button}>
-                    <Text style={GenStyles.bText}>Log in</Text>
+                <TouchableHighlight style={GenLogStyles.button}>
+                    <Text style={GenLogStyles.bText}>Log in</Text>
                 </TouchableHighlight>
 
                 <TouchableHighlight>
