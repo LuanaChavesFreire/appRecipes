@@ -1,9 +1,8 @@
 import SignDisplay from "./screens/logSign/signup";
-import LogDisplay from "./screens/logSign/login";
+import FirstScreen from "./screens/inApp/firstScreen";
 
 export default function Index() {
   return (
-    <LogDisplay />
+    <FirstScreen />
   );
 }
-
