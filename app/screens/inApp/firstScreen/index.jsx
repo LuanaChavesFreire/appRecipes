@@ -1,5 +1,5 @@
-import { View, Text, TouchableHighlight } from "react-native";
-import styles from '../../../assets/firstScreenStyles/styles'
+import { Text, TouchableHighlight, View } from "react-native";
+import styles from './styles';
 
 export default function FirstScreen() {
     return(
