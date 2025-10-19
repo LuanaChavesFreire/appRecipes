@@ -36,7 +36,7 @@ const GenLogStyles = StyleSheet.create({
     button: {
         width: "60%",
         height: 40,
-        marginTop: 20,
+        margin: 20,
         borderRadius: 5,
         justifyContent: "center",
         alignItems: "center",

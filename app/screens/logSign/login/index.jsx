@@ -1,5 +1,7 @@
 import { Text, TextInput, TouchableHighlight, View } from "react-native";
+import { Link } from 'expo-router';
 import GenLogStyles from "./styles";
+
 
 export default function LogDisplay() {
     return(
@@ -15,9 +17,11 @@ export default function LogDisplay() {
                     <Text style={GenLogStyles.bText}>Log in</Text>
                 </TouchableHighlight>
 
-                <TouchableHighlight>
-                    <Text style={{marginTop: 10, color: "#472950"}}>Don't you have a account? Sign Up</Text>
-                </TouchableHighlight>
+                <Link href={"/screens/logSign/signup"} push>
+                    <Text style={{color: "#472950"}}>Don't have a account? Sign Up</Text>
+                </Link>
+                
+
             </View>
         </View>
     )
