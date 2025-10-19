@@ -41,3 +41,14 @@ app-example
 # generated native folders
 /ios
 /android
+<<<<<<< HEAD
+=======
+
+/generated/prisma
+
+/generated/prisma
+
+.env
+
+/services/api.js
+>>>>>>> 1519e8c (feat: SignUp was builded up)
