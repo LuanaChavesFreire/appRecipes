@@ -42,7 +42,10 @@ app-example
 /ios
 /android
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> develop
 
 /generated/prisma
 
@@ -50,5 +53,9 @@ app-example
 
 .env
 
+<<<<<<< HEAD
 /services/api.js
 >>>>>>> 1519e8c (feat: SignUp was builded up)
+=======
+/services/api.js
+>>>>>>> develop
