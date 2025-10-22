@@ -26,8 +26,28 @@ app.post('/users', async (req, res) => {
 });
 
 app.get('/users', async (req, res) => {
-    const users = await prisma.users.findMany();
-    res.json(users).status(200);
+  try{
+    const { email, password } = req.query;
+    if(!email || !password) {
+      return res.status(400).json({ error: 'Email and password are required' });
+    }
+    const user = await prisma.users.findFirst({
+      where: {
+        email: String(email),
+      }
+    });
+
+    if(!user || user.password !== password) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    return res.status(200).json(user);
+  }
+
+  catch(err) {
+    return res.status(500).json({ error: 'Server error' });
+  }
+    
 });
 
 app.listen(3000, () => {
