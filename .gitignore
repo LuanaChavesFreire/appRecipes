@@ -41,21 +41,8 @@ app-example
 # generated native folders
 /ios
 /android
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> develop
-
-/generated/prisma
 
 /generated/prisma
 
 .env
-
-<<<<<<< HEAD
 /services/api.js
->>>>>>> 1519e8c (feat: SignUp was builded up)
-=======
-/services/api.js
->>>>>>> develop
