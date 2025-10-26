@@ -47,3 +47,4 @@ app-example
 /generated/prisma
 
 .env
+/services/api.js
