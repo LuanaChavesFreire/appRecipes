@@ -1,5 +1,4 @@
-import SignDisplay from "./screens/logSign/signup";
-import FirstScreen from "./screens/inApp/firstScreen";
+import FirstScreen from "./screens/inApp/firstScreen/index.jsx";
 
 export default function Index() {
   return (

@@ -1,5 +1,5 @@
 import { Text, TextInput, TouchableHighlight, View } from "react-native";
-import GenLogStyles from "../../../assets/logSignStyles/styles";
+import GenLogStyles from "./styles";
 
 export default function LogDisplay() {
     return(
