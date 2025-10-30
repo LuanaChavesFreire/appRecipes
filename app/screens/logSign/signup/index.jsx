@@ -25,7 +25,7 @@ export default function SignDisplay() {
         password
       });
       
-      Alert.alert("User created successfully!", "", [{ text: "OK", onPress: () => router.push("/screens/inApp/firstScreen") }]);
+      Alert.alert("User created successfully!", "", [{ text: "OK", onPress: () => router.push("/screens/logSign/login") }]);
 
       setFullName("");
       setEmail("");
