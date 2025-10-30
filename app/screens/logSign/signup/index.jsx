@@ -19,7 +19,7 @@ export default function SignDisplay() {
     }
 
     try{
-      const res = await api.post('/users', {
+      const res = await api.post('/signup', {
         fullname,
         email,
         password

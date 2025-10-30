@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 app.use(cors())
 
-app.post('/users', async (req, res) => {
+app.post('/signup', async (req, res) => {
   try {
     await prisma.users.create({
       data: {
@@ -26,7 +26,7 @@ app.post('/users', async (req, res) => {
   }
 });
 
-app.get('/users', async (req, res) => {
+app.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -44,18 +44,20 @@ app.get('/users', async (req, res) => {
     
     const token = jwt.sign(
       {id_user: user.id},
-      process.env.access_token_secret
+      process.env.access_token_secret,
+      { expiresIn: '7d' }
     )
     
     return res.status(200).json({ token });
   }
   
   catch (err) {
+    console.log(err, err.status, Object.getOwnPropertyNames(err))
     return res.status(500).json({ error: 'Server error' });
   }
 });
 
-app.post('/recipe', tokenAuthenticator, async (req, res) => {
+app.post('/createRecipe', tokenAuthenticator, async (req, res) => {
   try {
     console.log(prisma.recipe)
     await prisma.recipe.create({
@@ -87,7 +89,6 @@ function tokenAuthenticator(req, res, next) {
     next();
   });
 }
-
 
 
 app.listen(3000, () => {
