@@ -1,7 +1,9 @@
 import { Text, TouchableHighlight, View } from "react-native";
+import { useRouter } from "expo-router";
 import styles from './styles';
 
 export default function FirstScreen() {
+    const router = useRouter();
     return(
         <View style={styles.container}>
             <View style={styles.headerView}>
@@ -13,7 +15,7 @@ export default function FirstScreen() {
                 <Text style={styles.btnText}>My Recipes</Text>
             </TouchableHighlight>
             
-            <TouchableHighlight style={styles.btnFS}>
+            <TouchableHighlight style={styles.btnFS} onPress={() => router.push("/screens/inApp/createRecipe")}>
                 <Text style={styles.btnText}>Create Recipe</Text>
             </TouchableHighlight>
             

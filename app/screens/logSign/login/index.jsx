@@ -18,17 +18,16 @@ export default function LogDisplay() {
         }
 
         try {
-            const res = await api.get('/users', {
-                params: {
-                    email,
-                    password
-                }
+            const res = await api.post('/login', {
+                email,
+                password
+
             })
             if (res.data) {
                 Alert.alert("Login successful!", "", [{ text: "OK", onPress: () => router.push("/screens/inApp/firstScreen") }]);
             }
-            
-            await AsyncStorage.setItem('token', response.data.token)
+
+            await AsyncStorage.setItem('token', res.data.token)
             setEmail("");
             setPassword("");
         }

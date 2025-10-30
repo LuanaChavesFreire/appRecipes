@@ -19,13 +19,13 @@ export default function SignDisplay() {
     }
 
     try{
-      const res = await api.post('/users', {
+      const res = await api.post('/signup', {
         fullname,
         email,
         password
       });
       
-      Alert.alert("User created successfully!", "", [{ text: "OK", onPress: () => router.push("/screens/inApp/firstScreen") }]);
+      Alert.alert("User created successfully!", "", [{ text: "OK", onPress: () => router.push("/screens/logSign/login") }]);
 
       setFullName("");
       setEmail("");

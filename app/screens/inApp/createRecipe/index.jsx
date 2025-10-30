@@ -1,6 +1,8 @@
 import { Text, TouchableHighlight, View, TextInput, Alert } from "react-native";
 import { useState } from "react";
 import { useRouter } from "expo-router";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import api from "../../../../services/api";
 import Styles from "./styles.jsx";
 
 function CreateRecipeScreen() {
@@ -17,14 +19,19 @@ function CreateRecipeScreen() {
         }
 
         try {
-            const res = await api.post('/recipe', {
+            const token = await AsyncStorage.getItem("token");
+
+            const res = await api.post('/createRecipe', {
                 tittle,
                 ingredients,
                 preparing,
                 duration
+            },
+            {
+                headers: {Authorization: `Bearer ${token}`,},
             })
 
-            Alert.alert("User created successfully!", "", [{ text: "OK", onPress: () => router.push("/screens/inApp/firstScreen") }]);
+            Alert.alert("Recipe created successfully!", "", [{ text: "OK", onPress: () => router.push("/screens/inApp/firstScreen") }]);
 
             setTittle('');
             setIngredients('');
@@ -36,12 +43,28 @@ function CreateRecipeScreen() {
             Alert.alert("Error", err?.response?.data?.message || "An error occurred while creating the recipe.");
         }
     }
+<<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 06d4051 (fix: adjusted routes endpoints)
+=======
+
+>>>>>>> 34f2606 (fix: fixed bugs on creating recipe route)
     return (
         <View style={Styles.container}>
             <View style={Styles.display}>
                 <Text style={Styles.displayTitle}>Creating a New Recipe</Text>
+<<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+                
+>>>>>>> 06d4051 (fix: adjusted routes endpoints)
+=======
+
+>>>>>>> 34f2606 (fix: fixed bugs on creating recipe route)
                 <TextInput placeholder="Recipe Name" style={Styles.inputSmaller} value={tittle} onChangeText={setTittle} />
 
                 <TextInput placeholder="Ingredients" style={Styles.inputBigger} multiline value={ingredients} onChangeText={setIngredients} />
