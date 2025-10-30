@@ -66,7 +66,7 @@ app.post('/createRecipe', tokenAuthenticator, async (req, res) => {
         ingredients: req.body.ingredients,
         preparing: req.body.preparing,
         duration: req.body.duration,
-        users: {connect: {id: req.id_user}}
+        users: {connect: {id: req.user.id_user}}
       }
     });
     return res.status(201).send('recipe created');

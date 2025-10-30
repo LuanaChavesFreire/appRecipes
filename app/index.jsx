@@ -5,6 +5,6 @@ import FirstScreen from "./screens/inApp/firstScreen"
 
 export default function Index() {
   return (
-    <FirstScreen />
+    <LogDisplay />
   );
 }
