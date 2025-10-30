@@ -8,8 +8,18 @@ datasource db {
 }
 
 model users {
-  id       Int    @id @default(autoincrement())
-  fullname String @db.VarChar(45)
-  email    String @unique @db.VarChar(45)
-  password String @db.VarChar(10)
+  id       Int      @id @default(autoincrement())
+  fullname String   @db.VarChar(45)
+  email    String   @unique @db.VarChar(45)
+  password String   @db.VarChar(10)
+  recipe   recipe[]
+}
+
+model recipe {
+  tittle      String  @id @db.VarChar(45)
+  ingredients String
+  preparing   String
+  duration    String? @db.VarChar
+  id_user     Int?
+  users       users?  @relation(fields: [id_user], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

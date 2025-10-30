@@ -53,6 +53,7 @@ app.get('/users', async (req, res) => {
   catch (err) {
     return res.status(500).json({ error: 'Server error' });
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   }
 });
@@ -97,6 +98,33 @@ function tokenAuthenticator(req, res, next) {
 
 
 >>>>>>> fcd168d (feat: login logic is done)
+=======
+  }   
+});
+
+app.post('/recipe', async (req, res) => {
+  try{
+    console.log(prisma.recipe)
+    await prisma.recipe.create({
+      data: {
+        tittle: req.body.tittle,
+        ingredients: req.body.ingredients,
+        preparing: req.body.preparing,
+        duration: req.body.duration,
+        id_user: req.body.id_user
+      }
+    });
+    return res.status(201).send('recipe created');
+  }
+  catch(err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Server error' });
+  }
+});
+
+
+
+>>>>>>> c9031d4 (feat: post recipe route seted)
 app.listen(3000, () => {
   console.log("Servidor rodando na porta 3000");
 });
