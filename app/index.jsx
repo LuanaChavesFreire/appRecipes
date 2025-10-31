@@ -4,6 +4,6 @@ import RecipeView from "./screens/inApp/recipeView"
 
 export default function Index() {
   return (
-    <RecipeView />
+    <LogDisplay />
   );
 }

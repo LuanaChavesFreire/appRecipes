@@ -77,8 +77,17 @@ app.post('/createRecipe', tokenAuthenticator, async (req, res) => {
   }
 });
 
+app.get('/recipes', tokenAuthenticator, async (req, res) => {
+  console.log('usuario atual', req.user)
+  const recipes = await prisma.recipe.findMany({
+    where: {id_user: req.user.id_user}
+  })
+  
+  return res.json(recipes)
+});
+
 function tokenAuthenticator(req, res, next) {
-  // I'll storage the access token this way couse the authorization header will come in a format off ( bearer TOKEN), so doing it just the token will be taken
+  // I'll storage the access token this way couse the authorization header will come in a format off (bearer TOKEN), so doing it just the token will be taken
   const authHeader = req.headers['authorization'];
   if (!authHeader) return res.sendStatus(401);
   

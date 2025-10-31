@@ -1,7 +1,21 @@
 import { Text, View, ScrollView, TouchableWithoutFeedback } from "react-native"
 import Styles from './style'
+import api from "../../../../services/api"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 function ViewRecipe() {
+    async function getRecipes() {
+        try{
+            const token = await AsyncStorage.getItem("token")
+            const res = await api.get('/recipes', {headers: {'Authorization': `Bearer ${token}`}});
+            console.log(res.data)
+        }
+        catch(err){
+            console.log(err);
+            
+        }
+    }
+    getRecipes();
     return (
         <View style={Styles.container}>
             <View style={Styles.header}>
