@@ -58,7 +58,22 @@ const Styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: "500",
 
+    },
+
+    recipeModal: {
+        borderTopLeftRadius: 40,
+        borderTopRightRadius: 40,
+        backgroundColor: '#f5daccff'
+    },
+
+    recipeTxts: {
+        fontSize: 18,
+        color: '#472950',
+        marginHorizontal: 45,
+        marginVertical: 5
     }
+
+
 
 
 })

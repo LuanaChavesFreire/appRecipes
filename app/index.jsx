@@ -1,9 +1,13 @@
-import LogDisplay from "./screens/logSign/login/index.jsx";
-import SignDisplay from "./screens/logSign/signup/index.jsx";
-import RecipeView from "./screens/inApp/recipeView"
+import LogDisplay from "./screens/logSign/login/index.jsx";import 'react-native-gesture-handler';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet } from 'react-native';
 
 export default function Index() {
   return (
-    <LogDisplay />
+    <GestureHandlerRootView>
+      <LogDisplay />
+      <StatusBar style="auto"/>
+    </GestureHandlerRootView>
   );
 }

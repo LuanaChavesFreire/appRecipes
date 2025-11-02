@@ -11,7 +11,7 @@ export default function FirstScreen() {
             </View>
 
             <View style={styles.btnView}>
-            <TouchableHighlight style={styles.btnFS} onPress={() => router.push("/screens/inApp/recipeView")}>
+            <TouchableHighlight style={styles.btnFS} onPress={() => router.push("/screens/inApp/recipeList")}>
                 <Text style={styles.btnText}>My Recipes</Text>
             </TouchableHighlight>
             
