@@ -1,9 +1,10 @@
-import { useEffect, useState, useRef } from 'react';
-import { ScrollView, Text, TouchableWithoutFeedback, View } from "react-native";
-import { Modalize } from 'react-native-modalize'; import 'react-native-gesture-handler';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { StatusBar } from 'expo-status-bar';
+import { useEffect, useRef, useState } from 'react';
+import { Alert, ScrollView, Text, TouchableHighlight, TouchableWithoutFeedback, View } from "react-native";
+import 'react-native-gesture-handler';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Modalize } from 'react-native-modalize';
 import api from "../../../../services/api";
 import Styles from './style';
 
@@ -17,9 +18,10 @@ function ViewRecipe() {
             try {
                 const token = await AsyncStorage.getItem("token")
                 const res = await api.get('/recipes', { headers: { 'Authorization': `Bearer ${token}` } });
-                console.log(res.data)
+                // console.log(res.data)
                 setRecipes(res.data)
-                console.log(recipes)
+                
+                // console.log(recipes) (tested :D)
             }
             catch (err) {
                 console.log(err);
@@ -27,11 +29,26 @@ function ViewRecipe() {
             }
         }
         getRecipes();
-    }, [])
+    }, [recipes]);
+
     const onOpen = (recipe) => {
         setSelectedRecipe(recipe);
         modalizeRef.current?.open();
     };
+
+    async function delRecipe(recipeId) {
+        try {
+            modalizeRef.current?.close();
+            const token = await AsyncStorage.getItem("token")
+            const res = await api.delete(`/delete/${recipeId}`,
+                { headers: { 'Authorization': `Bearer ${token}` } },
+            );
+        }
+        catch (err) {
+            console.log(selectedRecipe.id)
+            console.log(err)
+        }
+    }
 
     return (
         <GestureHandlerRootView>
@@ -51,7 +68,7 @@ function ViewRecipe() {
                         <ScrollView>
                             {recipes.map((item) => {
                                 return (
-                                    <TouchableWithoutFeedback key={item.tittle} onPress={() => onOpen(item)}>
+                                    <TouchableWithoutFeedback key={item.id} onPress={() => onOpen(item)}>
                                         <View style={Styles.btnRecipe}>
                                             <Text style={Styles.txtBtnRecipe}>{item.tittle}</Text>
                                         </View>
@@ -77,6 +94,12 @@ function ViewRecipe() {
                                 <Text style={Styles.recipeTxts}>
                                     ⌚ During: {selectedRecipe.duration || "—"}
                                 </Text>
+
+                                <TouchableHighlight onPress={() => delRecipe(selectedRecipe.id)}>
+                                    <View>
+                                        <Text>Delete</Text>
+                                    </View>
+                                </TouchableHighlight>
 
                             </View>
                         )}
