@@ -71,9 +71,27 @@ const Styles = StyleSheet.create({
         color: '#472950',
         marginHorizontal: 45,
         marginVertical: 5
+    },
+
+    btnDelete: {
+        margin: 20,
+        width: 150,
+        height: 40,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 20,
+        backgroundColor: '#472950'
+    },
+
+    dltEdtText: {
+        color: '#f5daccff',
+        fontSize: 18
+    },
+
+    btnContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around'
     }
-
-
 
 
 })
