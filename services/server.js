@@ -37,26 +37,23 @@ app.post('/login', async (req, res) => {
         email: String(email),
       }
     });
-    
+
     if (!user || user.password !== password) {
       return res.status(404).json({ error: 'User not found' });
     }
-    
+
     const token = jwt.sign(
-      {id_user: user.id},
+      { id_user: user.id },
       process.env.access_token_secret,
       { expiresIn: '7d' }
     )
-    
+
     return res.status(200).json({ token });
   }
-  
+
   catch (err) {
     console.log(err, err.status, Object.getOwnPropertyNames(err))
     return res.status(500).json({ error: 'Server error' });
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
   }
 });
 
@@ -69,7 +66,7 @@ app.post('/createRecipe', tokenAuthenticator, async (req, res) => {
         ingredients: req.body.ingredients,
         preparing: req.body.preparing,
         duration: req.body.duration,
-        users: {connect: {id: req.user.id_user}}
+        users: { connect: { id: req.user.id_user } }
       }
     });
     return res.status(201).send('recipe created');
@@ -77,18 +74,62 @@ app.post('/createRecipe', tokenAuthenticator, async (req, res) => {
   catch (err) {
     console.error(err);
     return res.status(500).json({ error: 'Server error' });
->>>>>>> fcd168d (feat: login logic is done)
   }
     
 });
 
-<<<<<<< HEAD
-=======
+app.get('/recipes', tokenAuthenticator, async (req, res) => {
+  // console.log('usuario atual', req.user)
+  const recipes = await prisma.recipe.findMany({
+    where: { id_user: req.user.id_user }
+  })
+
+  return res.json(recipes)
+});
+
+app.delete('/delete/:id', tokenAuthenticator, async (req, res) => {
+  try {
+    await prisma.recipe.deleteMany({
+      where: {
+        id_user: req.user.id_user,
+        id: Number(req.params.id)
+      }
+    })
+    res.status(200)
+  }
+  catch (err) {
+    console.log(err)
+  }
+})
+
+app.put('/edit/:id', tokenAuthenticator, async (req, res) => {
+  try {
+    await prisma.recipe.update({
+      where: {
+        id: Number(req.params.id)
+      },
+      data: {
+        tittle: req.body.tittle,
+        ingredients: req.body.ingredients,
+        preparing: req.body.preparing,
+        duration: req.body.duration
+      }
+    })
+
+    res.status(200)
+    console.log('deu bom oh')
+  }
+
+  catch (err) {
+    console.log(err)
+  }
+})
+
 function tokenAuthenticator(req, res, next) {
-  // I'll storage the access token this way couse the authorization header will come in a format off ( bearer TOKEN), so doing it just the token will be taken
+  // I'll storage the access token this way couse the authorization header will come in a format off (bearer TOKEN), so doing it just the token will be taken
   const authHeader = req.headers['authorization'];
   if (!authHeader) return res.sendStatus(401);
-  
+
   const token = authHeader.split(' ')[1];
   jwt.verify(token, process.env.access_token_secret, (err, user) => {
     if (err) return res.sendStatus(403);
@@ -97,39 +138,6 @@ function tokenAuthenticator(req, res, next) {
   });
 }
 
-
-<<<<<<< HEAD
-
->>>>>>> fcd168d (feat: login logic is done)
-=======
-  }   
-});
-
-app.post('/recipe', async (req, res) => {
-  try{
-    console.log(prisma.recipe)
-    await prisma.recipe.create({
-      data: {
-        tittle: req.body.tittle,
-        ingredients: req.body.ingredients,
-        preparing: req.body.preparing,
-        duration: req.body.duration,
-        id_user: req.body.id_user
-      }
-    });
-    return res.status(201).send('recipe created');
-  }
-  catch(err) {
-    console.error(err);
-    return res.status(500).json({ error: 'Server error' });
-  }
-});
-
-
-
->>>>>>> c9031d4 (feat: post recipe route seted)
-=======
->>>>>>> 06d4051 (fix: adjusted routes endpoints)
 app.listen(3000, () => {
   console.log("Servidor rodando na porta 3000");
 });
