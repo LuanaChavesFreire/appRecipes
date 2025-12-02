@@ -132,10 +132,10 @@ app.post('/generateRecipe', tokenAuthenticator, async (req, res) => {
   }
 
   try {
-    const prompt = `Generate a recipe using the following ingredients: ${ingredients}. Separate the recipe camps using "|" in this order: tittle | ingredients | preparing | estimate duration (in minutes). Don't break lines, only use "|" to separate the camps.`;
+    const prompt = `Generate a recipe using the following ingredients: ${ingredients}. Return the result in exactly 4 fields separated by "|", in this exact order: Title | Ingredients | Preparing | Estimated duration (minutes). Do not add extra text, explanations or line breaks. Only return the 4 fields separated by "|".`;
 
     const resApi = await axios.post('https://api.groq.com/openai/v1/chat/completions', {
-      model: 'llama3-8b-8192',
+      model: 'llama-3.1-8b-instant',
       messages: [{
         role: 'user',
         content: prompt
@@ -147,21 +147,22 @@ app.post('/generateRecipe', tokenAuthenticator, async (req, res) => {
       });
 
     const response = resApi.data.choices[0].message.content;
-    const [tittle, ingredients, preparing, duration] = response.split('|').map(s => s.trim());
+    const [titleRes, ingredientsRes, preparingRes, durationRes] = response.split('|').map(s => s.trim());
 
     const recipe = await prisma.recipe.create({
       data: {
-        tittle,
-        ingredients,
-        preparing,
-        duration,
+        tittle: titleRes,
+        ingredients: ingredientsRes,
+        preparing: preparingRes,
+        duration: durationRes,
         users: { connect: { id: req.user.id_user } }
       }
     })
+    console.log('Groq raw response:', response);
     return res.status(201).json(recipe);
   }
   catch(err) {
-    console.error(err)
+    console.error('Groq error:', err.response?.data || err.message);
     return res.status(500).json({ error: 'Server error' })
   }
 })

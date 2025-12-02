@@ -3,7 +3,7 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
-    "devStart": "nodemon server.js",
+    "dev": "nodemon services/server.js",
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
     "android": "expo start --android",
@@ -34,6 +34,7 @@
     "expo-web-browser": "~15.0.8",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
+    "nodemon": "^3.1.11",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-native": "0.81.4",

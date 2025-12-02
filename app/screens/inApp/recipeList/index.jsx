@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useRef, useState } from 'react';
-import { ScrollView, Text, TouchableHighlight, TouchableWithoutFeedback, View, TextInput, Alert } from "react-native";
+import { ScrollView, Text, TouchableHighlight, TouchableWithoutFeedback, View, TextInput } from "react-native";
 import 'react-native-gesture-handler';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Modalize } from 'react-native-modalize';
@@ -103,7 +103,9 @@ function ViewRecipe() {
                             })}
                         </ScrollView>
                     </View>
-                    <Modalize ref={modalizeRef} modalStyle={Styles.recipeModal}>
+                    <Modalize ref={modalizeRef} modalStyle={Styles.recipeModal}
+                    modalHeight={520}
+                    scrollViewProps={{ contentContainerStyle: { padding: 16 }, keyboardShouldPersistTaps: 'handled' }}>
                         {selectedRecipe ? (edit ? (
                             <View>
                                 <TextInput style={Styles.listTittle}
