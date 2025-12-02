@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import jwt from 'jsonwebtoken';
+import axios from 'axios';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient()
@@ -122,6 +123,48 @@ app.put('/edit/:id', tokenAuthenticator, async (req, res) => {
 
   catch (err) {
     console.log(err)
+  }
+})
+
+app.post('/generateRecipe', tokenAuthenticator, async (req, res) => {
+  const { ingredients } = req.body;
+  if (!ingredients) {
+    return res.status(400).json({ error: 'Ingredients are required' })
+  }
+
+  try {
+    const prompt = `Generate a recipe using the following ingredients: ${ingredients}. Return the result in exactly 4 fields separated by "|", in this exact order: Title | Ingredients | Preparing | Estimated duration (minutes). Do not add extra text, explanations or line breaks. Only return the 4 fields separated by "|".`;
+
+    const resApi = await axios.post('https://api.groq.com/openai/v1/chat/completions', {
+      model: 'llama-3.1-8b-instant',
+      messages: [{
+        role: 'user',
+        content: prompt
+      }],
+      temperature: 0.7,
+    },
+      {
+        headers: { 'Authorization': `Bearer ${process.env.GROQ_API_KEY}`, 'Content-Type': 'application/json' }
+      });
+
+    const response = resApi.data.choices[0].message.content;
+    const [titleRes, ingredientsRes, preparingRes, durationRes] = response.split('|').map(s => s.trim());
+
+    const recipe = await prisma.recipe.create({
+      data: {
+        tittle: titleRes,
+        ingredients: ingredientsRes,
+        preparing: preparingRes,
+        duration: durationRes,
+        users: { connect: { id: req.user.id_user } }
+      }
+    })
+    console.log('Groq raw response:', response);
+    return res.status(201).json(recipe);
+  }
+  catch(err) {
+    console.error('Groq error:', err.response?.data || err.message);
+    return res.status(500).json({ error: 'Server error' })
   }
 })
 
