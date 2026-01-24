@@ -10,6 +10,7 @@ export default function LogDisplay() {
     const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [hidePassword, setHidePassword] = useState(true)
 
     async function login() {
         if (!email || !password) {
@@ -50,7 +51,11 @@ export default function LogDisplay() {
 
                 <TextInput style={GenLogStyles.input} placeholder="email" value={email} onChangeText={setEmail} />
 
-                <TextInput style={GenLogStyles.input} placeholder="password" value={password} onChangeText={setPassword} />
+                <TextInput style={GenLogStyles.input} placeholder="password" secureTextEntry={hidePassword} value={password} onChangeText={setPassword} />
+
+                <TouchableHighlight onPress={() => setHidePassword(!hidePassword)}>
+                    <Text>{hidePassword ? "Show" : "Hide"}</Text>
+                </TouchableHighlight>
 
                 <TouchableHighlight style={GenLogStyles.button} onPress={login}>
                     <Text style={GenLogStyles.bText}>Log in</Text>

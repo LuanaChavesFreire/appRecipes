@@ -11,6 +11,7 @@ export default function SignDisplay() {
   const [fullname, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [hidePassword, setHidePassword] = useState(true)
 
   async function signup() {
     if(!fullname || !email || !password) {
@@ -47,7 +48,11 @@ export default function SignDisplay() {
 
         <TextInput style={GenLogStyles.input} placeholder="email" value={email} onChangeText={setEmail}/>
 
-        <TextInput style={GenLogStyles.input} placeholder="Password" value={password} onChangeText={setPassword}/>
+        <TextInput style={GenLogStyles.input} secureTextEntry={hidePassword} placeholder="Password" value={password} onChangeText={setPassword}/>
+
+        <TouchableHighlight onPress={() => setHidePassword(!hidePassword)}>
+            <Text>{hidePassword ? "Show" : "Hide"}</Text>
+        </TouchableHighlight>
 
         <TouchableHighlight style={GenLogStyles.button} onPress={signup}>
           <Text style={GenLogStyles.bText}>Sign in</Text>
